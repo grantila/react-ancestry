@@ -20,6 +20,7 @@
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "scripts/pre-publish.sh",
     "install:16": "cd react-versions/16 && yarn",
     "install:17": "cd react-versions/17 && yarn",
     "subinstall": "yarn install:16 && yarn install:17",
