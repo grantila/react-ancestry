@@ -1,3 +1,8 @@
+[![npm version][npm-image]][npm-url]
+[![downloads][downloads-image]][npm-url]
+[![build status][build-image]][build-url]
+
+
 # react-ancenstry
 
 This package provides a React component which tells you the ancestry of this component, up until the root component.
@@ -65,3 +70,11 @@ will console.log:
     { name: 'MyComponent', type: 'component' },
 ]
 ```
+
+
+[npm-image]: https://img.shields.io/npm/v/react-ancestry.svg
+[npm-url]: https://npmjs.org/package/react-ancestry
+[downloads-image]: https://img.shields.io/npm/dm/react-ancestry.svg
+[build-image]: https://img.shields.io/github/workflow/status/grantila/react-ancestry/Master.svg
+[build-url]: https://github.com/grantila/react-ancestry/actions?query=workflow%3AMaster
+[lgtm-url]: https://lgtm.com/projects/g/grantila/react-ancestry/context:javascript

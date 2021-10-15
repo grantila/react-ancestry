@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"lib": [ "ES2019", "dom" ],
+		"moduleResolution": "node",
+		"module": "CommonJS",
+		"noEmit": false,
+		"outDir": "dist",
+		"pretty": true,
+		"jsx": "react",
+		"sourceMap": true,
+		"target": "ES2015",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true
+	},
+	"include": [
+		"src"
+	]
+}

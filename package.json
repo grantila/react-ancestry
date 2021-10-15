@@ -1,0 +1,54 @@
+{
+  "name": "react-ancestry",
+  "version": "0.0.0-development",
+  "description": "Get the component ancestry in React",
+  "author": "Gustaf Räntilä",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantila/react-ancestry/issues"
+  },
+  "homepage": "https://github.com/grantila/react-ancestry#readme",
+  "main": "./lib/index.ts",
+  "exports": "./lib/index.ts",
+  "types": "./lib/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "exports": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "install:16": "cd react-versions/16 && yarn",
+    "install:17": "cd react-versions/17 && yarn",
+    "subinstall": "yarn install:16 && yarn install:17",
+    "build": "rimraf dist && tsc",
+    "test:16": "cd react-versions/16 && yarn build:test:all",
+    "test:17": "cd react-versions/17 && yarn build:test:all",
+    "test": "yarn test:16 && yarn test:17",
+    "cz": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grantila/react-ancestry"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@types/node": "^16.9.1",
+    "@types/react": "^17.0.30",
+    "cz-conventional-changelog": "^3.1.0",
+    "jest": "^27.1.1",
+    "rimraf": "^3.0.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "peerDependencies": {
+    "react": "^16 || ^17"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
