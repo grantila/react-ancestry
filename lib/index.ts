@@ -129,24 +129,31 @@ function isReact17Prod( component: any ): component is ReactInternals17Prod
 
 function getAncestry( component: Component ): Array< AncestryElement >
 {
-	if ( isReact16( component ) )
+	try
 	{
-		// React 16 build
-		return getStack16( component._reactInternalFiber?.return );
+		if ( isReact16( component ) )
+		{
+			// React 16 build
+			return getStack16( component._reactInternalFiber?.return );
+		}
+		else if ( isReact17Dev( component ) )
+		{
+			// React 17 dev build
+			return getStack17Dev(
+				component._reactInternals?._debugOwner?.child
+			);
+		}
+		else if ( isReact17Prod( component ) )
+		{
+			// React 17 prod build
+			return getStack17Prod( component._reactInternals?.return );
+		}
+		return [ ];
 	}
-	else if ( isReact17Dev( component ) )
+	catch ( err )
 	{
-		// React 17 dev build
-		return getStack17Dev(
-			component._reactInternals?._debugOwner?.child
-		);
+		return [ ];
 	}
-	else if ( isReact17Prod( component ) )
-	{
-		// React 17 prod build
-		return getStack17Prod( component._reactInternals?.return );
-	}
-	return [ ];
 }
 
 export class Ancestry extends Component< AncestryProps >

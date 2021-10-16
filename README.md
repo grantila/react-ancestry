@@ -7,7 +7,9 @@
 
 This package provides a React component which tells you the ancestry of this component, up until the root component.
 
-It uses React internals, and can therefore potentially fail for certain versions of React, but is tested on React 16 (dev/prod build) and React 17 (dev/prod build).
+It uses React internals, and can therefore potentially fail (return an empty array) for untested versions of React. It is currently tested on React 16 (dev/prod build) and React 17 (dev/prod build).
+
+If you have a production build of your app, the component names may be shortened/uglified.
 
 # API
 
