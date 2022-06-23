@@ -11,9 +11,12 @@ It uses React internals, and can therefore potentially fail (return an empty arr
 
 If you have a production build of your app, the component names may be shortened/uglified.
 
+
 # API
 
-Place the `Ancestry` component where you want to know the ancestry and use the prop `onAncestry` to get a callback of the ancestry as an array of `AncestryElement` on the form:
+There are two ways to use this API. One is to use `getAncestry()` and provide a component. The other is to place an `<Ancestry>` component somewhere and get the ancestry as a callback.
+
+Both methods result in an array of `AncestryElement`:
 
 ```ts
 interface AncestryElement
@@ -22,6 +25,22 @@ interface AncestryElement
     type: 'component' | 'element';
 }
 ```
+
+
+## getAncestry
+
+You can use `getAncestry` to get the ancestry of a component:
+
+```ts
+import { getAncestry } from 'react-ancestry'
+
+const ancestry = getAncestry( component ); // Array of AncestryElement
+```
+
+
+## `<Ancestry>`
+
+Place the `Ancestry` component where you want to know the ancestry and use the prop `onAncestry` to get a callback of the ancestry as an array of `AncestryElement` on the form:
 
 Example:
 
