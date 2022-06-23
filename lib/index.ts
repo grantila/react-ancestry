@@ -140,7 +140,7 @@ function isReact17Prod( component: any ): component is ReactInternals17Prod
 
 // === Generic ===
 
-function getAncestry( component: Component ): Array< AncestryElement >
+export function getAncestry( component: Component ): Array< AncestryElement >
 {
 	try
 	{
