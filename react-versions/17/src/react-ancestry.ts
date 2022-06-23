@@ -12,12 +12,25 @@ export interface AncestryProps
 	onAncestry( ancestry: Array< AncestryElement > ): void;
 }
 
+function classNameOf( instance: Object | undefined ): string | undefined
+{
+	return !instance?.constructor
+		? undefined
+		: instance.constructor === Function
+		? undefined
+		: instance.constructor.name;
+}
+
 function elementOf( owner: ReactInternals17DevOwner ): AncestryElement
 {
 	return typeof owner.type === 'string'
 		? { name: owner.type, type: 'element' }
 		: {
-			name: owner.type?.displayName ?? owner.type?.name ?? 'unknown',
+			name:
+				classNameOf( owner.type )
+				?? owner.type?.displayName
+				?? owner.type?.name
+				?? 'unknown',
 			type: 'component',
 		};
 }
@@ -55,7 +68,7 @@ function isReact16( component: any ): component is ReactInternals16
 	return typeof component._reactInternalFiber?.return?.type !== 'undefined';
 }
 
-// ============== React 17 development build ================
+// ============== React 17/18 development build ================
 
 interface ReactInternals17Dev
 {
@@ -92,7 +105,7 @@ function isReact17Dev( component: any ): component is ReactInternals17Dev
 	return component._reactInternals?._debugOwner?.child;
 }
 
-// ============== React 17 production build ================
+// ============== React 17/18 production build ================
 
 interface ReactInternals17Prod
 {
@@ -127,26 +140,33 @@ function isReact17Prod( component: any ): component is ReactInternals17Prod
 
 // === Generic ===
 
-function getAncestry( component: Component ): Array< AncestryElement >
+export function getAncestry( component: Component ): Array< AncestryElement >
 {
-	if ( isReact16( component ) )
+	try
 	{
-		// React 16 build
-		return getStack16( component._reactInternalFiber?.return );
+		if ( isReact16( component ) )
+		{
+			// React 16 build
+			return getStack16( component._reactInternalFiber?.return );
+		}
+		else if ( isReact17Dev( component ) )
+		{
+			// React 17 dev build
+			return getStack17Dev(
+				component._reactInternals?._debugOwner?.child
+			);
+		}
+		else if ( isReact17Prod( component ) )
+		{
+			// React 17 prod build
+			return getStack17Prod( component._reactInternals?.return );
+		}
+		return [ ];
 	}
-	else if ( isReact17Dev( component ) )
+	catch ( _err )
 	{
-		// React 17 dev build
-		return getStack17Dev(
-			component._reactInternals?._debugOwner?.child
-		);
+		return [ ];
 	}
-	else if ( isReact17Prod( component ) )
-	{
-		// React 17 prod build
-		return getStack17Prod( component._reactInternals?.return );
-	}
-	return [ ];
 }
 
 export class Ancestry extends Component< AncestryProps >

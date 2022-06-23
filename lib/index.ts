@@ -68,7 +68,7 @@ function isReact16( component: any ): component is ReactInternals16
 	return typeof component._reactInternalFiber?.return?.type !== 'undefined';
 }
 
-// ============== React 17 development build ================
+// ============== React 17/18 development build ================
 
 interface ReactInternals17Dev
 {
@@ -105,7 +105,7 @@ function isReact17Dev( component: any ): component is ReactInternals17Dev
 	return component._reactInternals?._debugOwner?.child;
 }
 
-// ============== React 17 production build ================
+// ============== React 17/18 production build ================
 
 interface ReactInternals17Prod
 {
@@ -163,7 +163,7 @@ function getAncestry( component: Component ): Array< AncestryElement >
 		}
 		return [ ];
 	}
-	catch ( err )
+	catch ( _err )
 	{
 		return [ ];
 	}
