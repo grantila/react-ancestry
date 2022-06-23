@@ -12,12 +12,25 @@ export interface AncestryProps
 	onAncestry( ancestry: Array< AncestryElement > ): void;
 }
 
+function classNameOf( instance: Object | undefined ): string | undefined
+{
+	return !instance?.constructor
+		? undefined
+		: instance.constructor === Function
+		? undefined
+		: instance.constructor.name;
+}
+
 function elementOf( owner: ReactInternals17DevOwner ): AncestryElement
 {
 	return typeof owner.type === 'string'
 		? { name: owner.type, type: 'element' }
 		: {
-			name: owner.type?.displayName ?? owner.type?.name ?? 'unknown',
+			name:
+				classNameOf( owner.type )
+				?? owner.type?.displayName
+				?? owner.type?.name
+				?? 'unknown',
 			type: 'component',
 		};
 }
